@@ -1,14 +1,6 @@
-# PHP
-# Test and package your PHP project.
-# Add steps that run tests, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/php
-
-trigger:
-- master
-- dev
-
+# https://docs.microsoft.com/azure/devops/pipelines/ecosystems/php
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-16.04'
 
 variables:
   phpVersion: 7.2
@@ -22,15 +14,3 @@ steps:
     sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
     php -version
   displayName: 'Use PHP version $(phpVersion)'
-
-- script: composer install --no-interaction --prefer-dist
-  displayName: 'composer install'
-
-#stages:
-#- stage: A
-#  jobs:
-#  - job: A1
-
-#- stage: B
-#  jobs:
-#  - job: B1
