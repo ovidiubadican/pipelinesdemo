@@ -16,7 +16,13 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: cp index.php /var/www/html/index.php
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                ls
+                pwd
+                hostname
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
