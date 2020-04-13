@@ -10,7 +10,7 @@ stages:
   - deployment: deployprod
     displayName: prod
     environment:
-      name:  <environment name>
+      name: PROD
       resourceType: VirtualMachine
     strategy:
       runOnce:
