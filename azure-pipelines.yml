@@ -3,6 +3,9 @@ trigger:
 - infra
 - dev
 
+pool:
+  vmImage: ubuntu-latest
+
 stages:
 - stage: Prod
   condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
@@ -24,7 +27,7 @@ stages:
             inputs:
               sshEndpoint: 'PROD-SSH'
               sourceFolder: ''
-              contents: '**'
+              contents: '**/*'
               targetFolder: '/var/www/html'
               readyTimeout: '20000'
 
