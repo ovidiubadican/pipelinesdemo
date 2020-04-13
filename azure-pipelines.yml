@@ -3,8 +3,6 @@ trigger:
 - infra
 - dev
 
-pool:
-  vmImage: ubuntu-latest
 
 stages:
 - stage: Prod
@@ -23,13 +21,11 @@ stages:
             inputs:
               targetType: 'inline'
               script: 'sudo apt-get install php -y'
-          - task: CopyFilesOverSSH@0
+          - task: CopyFiles@2
             inputs:
-              sshEndpoint: 'PROD-SSH'
-              sourceFolder: ''
-              contents: '**/*'
-              targetFolder: '/var/www/html'
-              readyTimeout: '20000'
+              Contents: '**'
+              TargetFolder: '$(build.artifactstagingdirectory)'
+                
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
