@@ -1,0 +1,17 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureResourceGroupDeployment@2
+  inputs:
+    azureSubscription: 'Test Bento IT - Bento EA(c5cb35bb-7864-4137-96f8-04b1a3ae2300)'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'PipelinesDemo'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'template.json'
+    csmParametersFile: 'parameters.json'
+    deploymentMode: 'Incremental'
