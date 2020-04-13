@@ -16,15 +16,9 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: CopyFilesOverSSH@0
-            inputs:
-              sshEndpoint: 'PROD-SSH'
-              contents: '**'
-              targetFolder: '/home/demoadmin'
-              readyTimeout: '20000'
           - task: Bash@3
             inputs:
-              filePath: '/home/demoadmin/vmconfig.sh'
+              filePath: 'https://raw.githubusercontent.com/ovidiubadican/pipelinesdemo/master/vmconfig.sh'
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
