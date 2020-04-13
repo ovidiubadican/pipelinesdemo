@@ -25,7 +25,20 @@ stages:
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
   jobs:
-  - job: deploydev
+  - deployment: deploydev
+    displayName: dev
+    environment:
+      name: DEV
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                sudo apt-get install php -y
 
 - stage: Deploy
   condition: eq(variables['build.sourceBranch'], 'refs/heads/infra')
