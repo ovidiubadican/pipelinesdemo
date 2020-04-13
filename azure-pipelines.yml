@@ -7,7 +7,16 @@ stages:
 - stage: Prod
   condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
   jobs:
-  - job: deployprod
+  - deployment: deployprod
+    displayName: prod
+    environment:
+      name:  <environment name>
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: cp index.php /var/www/html/index.php
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
