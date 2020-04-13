@@ -22,7 +22,6 @@ stages:
               script: |
                 sudo apt-get install php -y
 
-
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
   jobs:
