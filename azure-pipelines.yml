@@ -1,12 +1,23 @@
 trigger:
 - master
+- infra
 - dev
 
 stages:
 - stage: Prod
   condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
   jobs:
-  - job: deployinfra
+  - job: deployprod
+
+- stage: Dev
+  condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+  jobs:
+  - job: deploydev
+
+- stage: Deploy
+  condition: eq(variables['build.sourceBranch'], 'refs/heads/infra')
+  jobs:
+  - job: deployinfra_prod
     steps:
     - task: AzureResourceGroupDeployment@2
       inputs:
@@ -19,10 +30,7 @@ stages:
         csmParametersFile: 'parameters.json'
         deploymentMode: 'Incremental'
 
-- stage: Dev
-  condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
-  jobs:
-  - job: deployinfra
+  - job: deployinfra_dev
     steps:
     - task: AzureResourceGroupDeployment@2
       inputs:
