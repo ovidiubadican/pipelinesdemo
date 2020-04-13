@@ -20,9 +20,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                ls
-                pwd
-                hostname
+                sudo apt-get install php -y
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
