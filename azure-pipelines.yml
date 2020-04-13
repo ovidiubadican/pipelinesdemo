@@ -4,7 +4,7 @@ trigger:
 
 stages:
 - stage: Prod
-  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  condition: and(eq(variables['build.sourceBranch'], 'refs/heads/master'))
   jobs:
   - job: deployinfra
     steps:
@@ -20,7 +20,7 @@ stages:
         deploymentMode: 'Incremental'
 
 - stage: Dev
-  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+  condition: and(eq(variables['build.sourceBranch'], 'refs/heads/dev'))
   jobs:
   - job: deployinfra
     steps:
