@@ -19,7 +19,7 @@ stages:
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'PROD-SSH'
-              contents: '*'
+              contents: '**'
               targetFolder: '/home/demoadmin'
               readyTimeout: '20000'
           - task: Bash@3
