@@ -18,9 +18,7 @@ stages:
           steps:
           - task: Bash@3
             inputs:
-              targetType: 'inline'
-              script: |
-                sudo apt-get install php -y
+              filePath: 'vmconfig.sh'
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
@@ -36,9 +34,7 @@ stages:
           steps:
           - task: Bash@3
             inputs:
-              targetType: 'inline'
-              script: |
-                sudo apt-get install php -y
+              filePath: 'vmconfig.sh'
 
 - stage: Deploy
   condition: eq(variables['build.sourceBranch'], 'refs/heads/infra')
