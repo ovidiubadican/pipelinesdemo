@@ -19,7 +19,7 @@ stages:
           - task: CopyFiles@2
             inputs:
               Contents: 'vmconfig.sh'
-              TargetFolder: '$(Agent.BuildDirectory)'
+              TargetFolder: '/home/demoadmin'
           - task: Bash@3
             inputs:
               filePath: '/home/demoadmin/vmconfig.sh'
