@@ -16,9 +16,13 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: CopyFiles@2
+            inputs:
+              Contents: 'vmconfig.sh'
+              TargetFolder: '$(Agent.BuildDirectory)'
           - task: Bash@3
             inputs:
-              filePath: 'vmconfig.sh'
+              filePath: '/home/demoadmin/vmconfig.sh'
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
