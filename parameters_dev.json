@@ -6,10 +6,10 @@
             "value": "westeurope"
         },
         "networkInterfaceName": {
-            "value": "prodvm45"
+            "value": "devvm45"
         },
         "networkSecurityGroupName": {
-            "value": "ProdVM-nsg"
+            "value": "DevVM-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -52,7 +52,7 @@
             ]
         },
         "publicIpAddressName": {
-            "value": "ProdVM-ip"
+            "value": "DevVM-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -61,7 +61,7 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "ProdVM"
+            "value": "DevVM"
         },
         "virtualMachineRG": {
             "value": "PipelinesDemo"
