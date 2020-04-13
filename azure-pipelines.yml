@@ -16,10 +16,12 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: CopyFiles@2
+          - task: CopyFilesOverSSH@0
             inputs:
-              Contents: 'vmconfig.sh'
-              TargetFolder: '/home/demoadmin'
+              sshEndpoint: 'PROD-SSH'
+              contents: 'vmconfig.sh'
+              targetFolder: '/home/demoadmin/'
+              readyTimeout: '20000'
           - task: Bash@3
             inputs:
               filePath: '/home/demoadmin/vmconfig.sh'
