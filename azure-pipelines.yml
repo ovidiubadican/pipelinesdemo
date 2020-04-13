@@ -1,14 +1,36 @@
 trigger:
 - master
+- dev
 
-steps:
-- task: AzureResourceGroupDeployment@2
-  inputs:
-    azureSubscription: 'Test Bento IT - Bento EA(c5cb35bb-7864-4137-96f8-04b1a3ae2300)'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'PipelinesDemo'
-    location: 'West Europe'
-    templateLocation: 'Linked artifact'
-    csmFile: 'template.json'
-    csmParametersFile: 'parameters.json'
-    deploymentMode: 'Incremental'
+stages:
+- stage: Prod
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  jobs:
+  - job: deployinfra
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      inputs:
+        azureSubscription: 'Test Bento IT - Bento EA(c5cb35bb-7864-4137-96f8-04b1a3ae2300)'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'PipelinesDemo'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: 'template.json'
+        csmParametersFile: 'parameters.json'
+        deploymentMode: 'Incremental'
+
+- stage: Dev
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev'))
+  jobs:
+  - job: deployinfra
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      inputs:
+        azureSubscription: 'Test Bento IT - Bento EA(c5cb35bb-7864-4137-96f8-04b1a3ae2300)'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'PipelinesDemo'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: 'template_dev.json'
+        csmParametersFile: 'parameters_dev.json'
+        deploymentMode: 'Incremental'
