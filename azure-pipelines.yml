@@ -19,8 +19,8 @@ stages:
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'PROD-SSH'
-              contents: 'vmconfig.sh'
-              targetFolder: '/home/demoadmin/'
+              contents: '*'
+              targetFolder: '/home/demoadmin'
               readyTimeout: '20000'
           - task: Bash@3
             inputs:
