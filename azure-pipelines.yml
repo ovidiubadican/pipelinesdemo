@@ -3,7 +3,6 @@ trigger:
 - infra
 - dev
 
-
 stages:
 - stage: Prod
   condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
@@ -21,11 +20,6 @@ stages:
             inputs:
               targetType: 'inline'
               script: 'sudo apt-get install php -y'
-          - task: CopyFiles@2
-            inputs:
-              Contents: '**'
-              TargetFolder: '$(build.artifactstagingdirectory)'
-                
 
 - stage: Dev
   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
@@ -41,7 +35,8 @@ stages:
           steps:
           - task: Bash@3
             inputs:
-              filePath: 'vmconfig.sh'
+              targetType: 'inline'
+              script: 'sudo apt-get install php -y'
 
 - stage: Deploy
   condition: eq(variables['build.sourceBranch'], 'refs/heads/infra')
