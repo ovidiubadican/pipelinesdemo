@@ -1,47 +1,10 @@
 trigger:
 - master
-- infra
 - dev
 
 stages:
 - stage: Prod
   condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
-  jobs:
-  - deployment: deployprod
-    displayName: prod
-    environment:
-      name: PROD
-      resourceType: VirtualMachine
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                sudo apt-get install php -y
-
-- stage: Dev
-  condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
-  jobs:
-  - deployment: deploydev
-    displayName: dev
-    environment:
-      name: DEV
-      resourceType: VirtualMachine
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                sudo apt-get install php -y
-
-- stage: Deploy
-  condition: eq(variables['build.sourceBranch'], 'refs/heads/infra')
   jobs:
   - job: deployinfra_prod
     steps:
@@ -56,6 +19,24 @@ stages:
         csmParametersFile: 'parameters.json'
         deploymentMode: 'Incremental'
 
+  - deployment: deployprod
+    displayName: prod
+    environment:
+      name: PROD
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                sudo apt-get update
+
+- stage: Dev
+  condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+  jobs:
   - job: deployinfra_dev
     steps:
     - task: AzureResourceGroupDeployment@2
@@ -68,3 +49,18 @@ stages:
         csmFile: 'template_dev.json'
         csmParametersFile: 'parameters_dev.json'
         deploymentMode: 'Incremental'
+
+  - deployment: deploydev
+    displayName: dev
+    environment:
+      name: DEV
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                sudo apt-get install php -y
