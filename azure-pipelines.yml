@@ -21,7 +21,7 @@ stages:
 
   - deployment: deployprod
     dependsOn: deployinfra_prod
-    displayName: prod
+    displayName: deploy_prod
     environment:
       name: PROD
       resourceType: VirtualMachine
@@ -52,7 +52,8 @@ stages:
         deploymentMode: 'Incremental'
 
   - deployment: deploydev
-    displayName: dev
+    dependsOn: deployinfra_dev
+    displayName: deploy_dev
     environment:
       name: DEV
       resourceType: VirtualMachine
@@ -64,4 +65,4 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                sudo apt-get install php -y
+                sudo apt-get update
