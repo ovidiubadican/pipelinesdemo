@@ -20,6 +20,7 @@ stages:
         deploymentMode: 'Incremental'
 
   - deployment: deployprod
+    dependsOn: deployinfra_prod
     displayName: prod
     environment:
       name: PROD
