@@ -29,23 +29,6 @@
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
-                    },
-                    {
-                        "name": "Port_8080",
-                        "properties": {
-                            "protocol": "TCP",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "80",
-                            "sourceAddressPrefix": "*",
-                            "destinationAddressPrefix": "*",
-                            "access": "Allow",
-                            "priority": 1010,
-                            "direction": "Inbound",
-                            "sourcePortRanges": [],
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefixes": [],
-                            "destinationAddressPrefixes": []
-                        }
                     }
             ]
         },
@@ -89,7 +72,7 @@
             "value": "Standard_LRS"
         },
         "virtualMachineSize": {
-            "value": "Standard_B1ms"
+            "value": "Standard_B1s"
         },
         "adminUsername": {
             "value": "demoadmin"
